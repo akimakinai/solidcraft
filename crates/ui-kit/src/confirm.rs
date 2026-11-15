@@ -158,7 +158,7 @@ impl<'a> Confirm<'a> {
                             paint_text(ui, title, self.title, crate::type_face::semibold(t.font_subtitle), t.form_ink, false);
                             ui.interact(title, ui.scope_id().with("title"), egui::Sense::hover())
                                 .widget_info(|| egui::WidgetInfo::labeled(egui::Role::Label, ui.is_enabled(), self.title));
-                            let response = super::icon_button_at(ui, close, "close", "Close");
+                            let response = super::icon_button_at(ui, close, "close", "ui.close");
                             closed = response.clicked();
                             solidcraft_ui_registry::publish_target("dialog:close", response.rect);
                             solidcraft_ui_registry::publish_rect("dialog:header", heading);

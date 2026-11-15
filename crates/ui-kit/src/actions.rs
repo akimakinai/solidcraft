@@ -338,7 +338,7 @@ pub(super) fn footer_with_left(
             });
             pointer_on_hover(ui, &response);
             solidcraft_ui_registry::publish_target("dialog:apply", response.rect);
-            solidcraft_ui_registry::publish_handle(&format!("dialog:{label}"), response.rect.center());
+            solidcraft_ui_registry::publish_handle(&format!("dialog:{}", solidcraft_ui_text::source_label(label)), response.rect.center());
             if response.clicked() {
                 action = Action::Apply;
             }
@@ -418,7 +418,7 @@ fn action_button(ui: &mut Ui, label: &str, kind: Action, look: &ActionLook, padd
         _ => "dialog:cancel",
     };
     solidcraft_ui_registry::publish_target(key, response.rect);
-    solidcraft_ui_registry::publish_handle(&format!("dialog:{label}"), response.rect.center());
+    solidcraft_ui_registry::publish_handle(&format!("dialog:{}", solidcraft_ui_text::source_label(label)), response.rect.center());
     response
 }
 

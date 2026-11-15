@@ -115,7 +115,7 @@ fn connect(app: &mut SolveApp, ctx: &egui::Context) {
     let (closed, action) =
         ui_kit::Window::new(egui::Id::unique("sc_connect_assistants"), "help", solidcraft_ui_text::tr_label("Connect AI assistants"))
             .cards(2.0)
-            .actions("", "Close", None)
+            .actions("", "ui.close", None)
             .show(ctx, true, |ui| {
                 ui_kit::text(
                     ui,
@@ -206,7 +206,7 @@ fn about(app: &mut SolveApp, ctx: &egui::Context) {
     }
     let (closed, action) = ui_kit::Window::new(egui::Id::unique("sc_about"), "help", solidcraft_ui_text::tr_label("About SolidCraft"))
         .cards(2.0)
-        .actions("", "Close", None)
+        .actions("", "ui.close", None)
         .show(ctx, true, |ui| {
             ui_kit::text(
                 ui,

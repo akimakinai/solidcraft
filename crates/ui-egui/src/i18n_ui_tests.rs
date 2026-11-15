@@ -296,6 +296,23 @@ fn interference_dialog_renders_in_the_active_language() {
     assert_eq!(fr.text("dialog.compute_again"), "Recalculer");
 }
 
+/// Measure's Close button is the dialog's Close, not the Hole dialog's "Close" clearance fit,
+/// which has the same English word; its scenario handle stays English.
+#[test]
+fn measure_close_button_is_not_the_close_clearance_fit() {
+    let mut h = Harness::new();
+    h.app.preferences.language = "ja".into();
+    h.app.home.open = false;
+    h.call("ui.start", json!({"command":"inspect.measure"}));
+    h.frames(3);
+    let close = solidcraft_ui_text::Locale::for_language("ja").text("ui.close").to_owned();
+    let fit = solidcraft_ui_text::Locale::for_language("ja").text("ui.fit_close").to_owned();
+    assert_ne!(close, fit);
+    assert!(h.widget(&close).is_some(), "{close:?} must be shown");
+    assert!(h.widget(&fit).is_none(), "{fit:?} is the clearance fit, not the button");
+    assert!(!scenario::handles("dialog:Close").is_empty(), "the handle keeps the English label");
+}
+
 /// The continuity legend's Gap (an opening between faces) and the sheet-metal hem's gap are
 /// different words in some languages, so each has its own message.
 #[test]

@@ -360,6 +360,12 @@ pub fn tr_label(label: &str) -> &str {
     if RESOLVED_LABELS.with(Cell::get) { label } else { locale().label(label) }
 }
 
+/// The English words for a label passed to [`tr_label`]: a stable id's English text, or the
+/// label itself. Scenario handles use it, so `ui.close` and `Close` name the same button.
+pub fn source_label(label: &str) -> &str {
+    english().messages().get(label).map_or(label, String::as_str)
+}
+
 /// Every English catalog entry `(id, text)`, for Preferences search to match a translation
 /// back to the words it was written in.
 pub fn each_english_message(mut f: impl FnMut(&str, &str)) {
@@ -473,6 +479,8 @@ mod tests {
             }
             assert_eq!(language(), "de");
             assert_eq!(format("dialog.selected_count", &[("count", "3")]), "3 ausgewählt");
+            assert_eq!(source_label("ui.cancel"), "Cancel", "a stable id's handle is its English text");
+            assert_eq!(source_label("Profile"), "Profile");
         }
         assert_eq!(language(), "en");
         assert_eq!(tr("ui.cancel"), "Cancel");

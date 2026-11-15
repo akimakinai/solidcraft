@@ -69,7 +69,7 @@ fn header_actions(
         vec2(t.form_close_size, t.form_close_size),
     );
     if closeable {
-        let close = icon_button_at(ui, close_rect, "close", "Close");
+        let close = icon_button_at(ui, close_rect, "close", "ui.close");
         solidcraft_ui_registry::publish_handle("dialog:close", close.rect.center());
         if close.clicked() {
             on_close();
@@ -176,7 +176,7 @@ impl<'a> TopHeader<'a> {
             solidcraft_ui_registry::publish_handle("dialog:close", cancel_rect.center());
         } else {
             let close_rect = target(right);
-            let response = icon_button_at(ui, close_rect, "close", "Close");
+            let response = icon_button_at(ui, close_rect, "close", "ui.close");
             solidcraft_ui_registry::publish_handle("dialog:close", response.rect.center());
             if response.clicked() {
                 *close = true;
@@ -259,7 +259,7 @@ pub fn inspector_header(ui: &mut Ui, icon: &str, title: &str, kind: &str, names:
         egui::pos2(rect.right() - (t.space_16 + t.space_4), rect.center().y),
         vec2(t.form_close_size, t.form_close_size),
     );
-    let close = super::icon_button_at(ui, close_rect, "close", solidcraft_ui_text::tr_label("Close"));
+    let close = super::icon_button_at(ui, close_rect, "close", "ui.close");
     solidcraft_ui_registry::publish_target(names.close, close.rect);
     if close.clicked() {
         action = Some(InspectorAction::Close);
